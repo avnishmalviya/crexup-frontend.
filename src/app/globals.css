@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+/*
+  Crexup design tokens
+  --------------------
+  ink        near-black navy-charcoal — sidebar, headings, high-emphasis text
+  paper      cool off-white app background (deliberately not warm cream)
+  surface    card/panel background
+  line       hairline border color
+  coral      primary action accent — reach/attention, the brand's one loud color
+  teal       success / verified / high-score
+  amber      pending / review-before-selecting
+  red        risk / declined / fake-follower-risk
+  indigo     links, selected states, informational
+*/
+:root {
+  --ink: #15161f;
+  --ink-soft: #2a2c3a;
+  --paper: #f3f4f7;
+  --surface: #ffffff;
+  --line: #e3e5ea;
+  --muted: #6b6f80;
+
+  --coral: #ff5a3c;
+  --coral-soft: #ffe6df;
+  --teal: #17a673;
+  --teal-soft: #dcf5ec;
+  --amber: #f2a93b;
+  --amber-soft: #fdf1dd;
+  --red: #e14b4b;
+  --red-soft: #fbe4e4;
+  --indigo: #5b6ef5;
+  --indigo-soft: #e8eafd;
+
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-inter);
+  --font-data: var(--font-jetbrains-mono);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+
+  --color-coral: var(--coral);
+  --color-coral-soft: var(--coral-soft);
+  --color-teal: var(--teal);
+  --color-teal-soft: var(--teal-soft);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --color-red: var(--red);
+  --color-red-soft: var(--red-soft);
+  --color-indigo: var(--indigo);
+  --color-indigo-soft: var(--indigo-soft);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-data: var(--font-data);
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+.font-data {
+  font-family: var(--font-data), ui-monospace, monospace;
+}
+
+/* Visible keyboard focus everywhere, per accessibility floor */
+:focus-visible {
+  outline: 2px solid var(--indigo);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+::selection {
+  background: var(--coral-soft);
+  color: var(--ink);
+}

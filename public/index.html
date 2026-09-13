@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crexup — Managed Nano & Micro Creator Marketing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0B0D;
+    --panel:#141416;
+    --hairline:#26262B;
+    --yellow:#F4B400;
+    --yellow-bright:#FFCE3A;
+    --paper:#F2EEE4;
+    --muted:#9C9893;
+    --radius:2px;
+    --maxw:980px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--ink);color:var(--paper);
+    font-family:'Inter',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.disp{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-0.01em;line-height:1.08;margin:0;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+  .muted{color:var(--muted);}
+  .lede{color:var(--muted);font-size:17px;max-width:600px;}
+  section{padding:88px 0;border-bottom:1px solid var(--hairline);}
+  .page section:last-of-type{border-bottom:none;}
+  .label{font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:14px;font-weight:600;}
+
+  /* NAV */
+  header{position:sticky;top:0;z-index:50;background:rgba(11,11,13,0.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--hairline);}
+  nav{display:flex;align-items:center;justify-content:space-between;max-width:var(--maxw);margin:0 auto;padding:20px 28px;}
+  .logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;}
+  .logo span{color:var(--yellow);}
+  .navlinks{display:flex;gap:10px;align-items:center;}
+  .navlink{font-size:14px;color:var(--muted);padding:9px 14px;border-radius:999px;font-weight:500;}
+  .navlink:hover{color:var(--paper);}
+  .navlink.active{color:var(--ink);background:var(--yellow);font-weight:600;}
+  .navbtn{font-size:14px;padding:10px 18px;border-radius:999px;font-weight:600;background:var(--yellow);color:#151300;}
+  .navbtn:hover{background:var(--yellow-bright);color:#151300;}
+
+  /* TICKER */
+  .ticker-band{background:var(--yellow);color:#151300;overflow:hidden;white-space:nowrap;border-bottom:1px solid var(--hairline);}
+  .ticker-track{display:inline-flex;animation:ticker-scroll 30s linear infinite;padding:11px 0;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.04em;}
+  .ticker-track span{padding:0 26px;border-right:1px solid rgba(21,19,0,0.25);}
+  @keyframes ticker-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion: reduce){.ticker-track{animation:none;}}
+
+  /* WHY US — scrolling "blog card" strip on the Home page */
+  #why-us{padding-bottom:56px;}
+  .whyus-scroll-outer{
+    overflow:hidden;margin-top:36px;
+    -webkit-mask-image:linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+    mask-image:linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+  }
+  .whyus-scroll-track{display:flex;gap:20px;width:max-content;animation:whyus-scroll 32s linear infinite;}
+  .whyus-scroll-outer:hover .whyus-scroll-track{animation-play-state:paused;}
+  .whyus-card{
+    flex:0 0 280px;border:1px solid var(--hairline);background:var(--panel);
+    padding:26px 22px;border-radius:var(--radius);
+  }
+  .whyus-card h3{font-size:16.5px;margin-bottom:8px;color:var(--paper);}
+  .whyus-card p{color:var(--muted);font-size:13.5px;margin:0;}
+  @keyframes whyus-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion: reduce){.whyus-scroll-track{animation:none;}}
+  @media (max-width:760px){.whyus-card{flex-basis:240px;}}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:999px;font-size:14.5px;font-weight:600;cursor:pointer;border:1px solid transparent;transition:transform .15s, background .15s;}
+  .btn:focus-visible{outline:2px solid var(--yellow);outline-offset:3px;}
+  .btn-solid{background:var(--yellow);color:#151300;}
+  .btn-solid:hover{background:var(--yellow-bright);}
+  .btn-ghost{background:transparent;border:1px solid var(--hairline);color:var(--paper);}
+  .btn-ghost:hover{border-color:var(--yellow);color:var(--yellow);}
+
+  /* PAGE VISIBILITY */
+  .page{display:none;}
+  .page.active{display:block;}
+
+  /* HOME */
+  .home-hero{padding:130px 0 100px;text-align:center;}
+  .home-hero h1{font-size:clamp(36px,6vw,64px);max-width:760px;margin:0 auto;}
+  .home-hero p{max-width:520px;margin:22px auto 48px;}
+  .choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:760px;margin:0 auto;}
+  .choice-card{background:transparent;border:1px solid var(--yellow);padding:40px 30px;border-radius:var(--radius);text-align:left;transition:background-color .15s;cursor:pointer;}
+  .choice-card:hover{background:rgba(244,180,0,0.08);}
+  .choice-card h3{font-size:22px;margin-bottom:10px;color:var(--paper);}
+  .choice-card p{color:var(--muted);font-size:14.5px;margin:0 0 20px;}
+  .choice-card .go{color:var(--yellow);font-weight:700;font-size:14px;}
+
+  /* BELIEFS (Our Story) */
+  .belief{border-left:2px solid var(--yellow);padding-left:20px;margin-bottom:26px;}
+  .belief h3{font-size:16.5px;margin-bottom:6px;}
+  .belief p{color:var(--muted);font-size:14px;margin:0;}
+
+  /* SIMPLE LIST BLOCKS */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--hairline);}
+  .steps .step{padding:32px 28px;border-right:1px solid var(--hairline);}
+  .steps .step:last-child{border-right:none;}
+  .step .n{font-family:'Space Grotesk',sans-serif;color:var(--yellow);font-size:13px;font-weight:700;margin-bottom:12px;}
+  .step h3{font-size:17px;margin-bottom:8px;}
+  .step p{color:var(--muted);font-size:14px;margin:0;}
+
+  .points{display:grid;grid-template-columns:1fr 1fr;gap:36px 40px;}
+  .point h3{font-size:17px;margin-bottom:6px;}
+  .point p{color:var(--muted);font-size:14px;margin:0;}
+
+  .tags{display:flex;flex-wrap:wrap;gap:10px;}
+  .tag{border:1px solid var(--hairline);padding:9px 16px;font-size:13.5px;color:var(--muted);border-radius:999px;}
+
+  /* FORMS */
+  .formwrap{border:1px solid var(--hairline);padding:36px;border-radius:var(--radius);max-width:640px;}
+  .field{margin-bottom:18px;}
+  label{display:block;font-size:13px;font-weight:600;margin-bottom:7px;color:var(--muted);}
+  input,select,textarea{width:100%;background:var(--panel);border:1px solid var(--hairline);color:var(--paper);padding:12px 14px;font-family:'Inter',sans-serif;font-size:14.5px;border-radius:var(--radius);}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--yellow);}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .chiprow{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{border:1px solid var(--hairline);padding:8px 14px;border-radius:999px;font-size:13px;color:var(--muted);cursor:pointer;user-select:none;transition:all .15s;}
+  .chip.picked{background:var(--yellow);color:#151300;border-color:var(--yellow);}
+  .successbox{display:none;border:1px solid var(--yellow);background:rgba(244,180,0,0.08);padding:18px;border-radius:var(--radius);color:var(--yellow-bright);font-size:14px;margin-top:16px;}
+  .successbox.show{display:block;}
+  .req{color:var(--yellow);}
+
+  /* SHARED FOOTER CONTENT (Our Story / Where We're Headed) */
+  .storyblock{background:var(--panel);}
+  .storyblock .points p{font-size:14px;}
+
+  footer{padding:40px 0;text-align:center;color:var(--muted);font-size:13px;}
+
+  @media (max-width:760px){
+    .choice-grid{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr;}
+    .steps .step{border-right:none;border-bottom:1px solid var(--hairline);}
+    .points{grid-template-columns:1fr;}
+    .field-row{grid-template-columns:1fr;}
+    .navlinks{gap:4px;}
+    .navlink{padding:8px 10px;font-size:13px;}
+  }
+
+  /* FOOTER (new 4-column) */
+  .site-footer{background:var(--panel);border-top:1px solid var(--hairline);padding:64px 0 32px;}
+  .footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1.2fr;gap:40px;}
+  .footer-col .label{color:var(--paper);}
+  .footer-brand .logo{font-size:20px;margin-bottom:14px;display:inline-block;}
+  .footer-tagline{color:var(--muted);font-size:14px;max-width:240px;margin:0 0 22px;}
+  .footer-social{display:flex;gap:10px;}
+  .footer-social a{
+    width:36px;height:36px;border-radius:999px;
+    background:var(--panel-alt,var(--panel));background:var(--panel);
+    border:1px solid var(--hairline);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--paper);transition:background .15s,color .15s,border-color .15s;
+  }
+  .footer-social a svg{width:16px;height:16px;fill:currentColor;}
+  .footer-social a:hover{background:var(--yellow);border-color:var(--yellow);color:#151300;}
+
+  .footer-links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px;}
+  .footer-links li a,.footer-links li{font-size:14px;color:var(--muted);}
+  .footer-links li a{cursor:pointer;transition:color .15s;}
+  .footer-links li a:hover{color:var(--paper);}
+
+  .footer-contact{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+  .footer-contact li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--muted);}
+  .footer-contact li svg{width:16px;height:16px;flex:none;margin-top:2px;fill:none;stroke:var(--yellow);stroke-width:2;}
+  .footer-contact li a{transition:color .15s;}
+  .footer-contact li a:hover{color:var(--paper);}
+
+  .footer-bottom{
+    margin-top:48px;padding-top:24px;border-top:1px solid var(--hairline);
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;
+  }
+  .footer-bottom .copyright{font-size:13px;color:var(--muted);}
+  .footer-bottom-links{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+  .footer-bottom-links a{font-size:13px;color:var(--muted);transition:color .15s;}
+  .footer-bottom-links a:hover{color:var(--paper);}
+  .footer-admin{
+    padding-left:20px;border-left:1px solid var(--hairline);
+    font-size:13px;color:var(--muted);opacity:0.75;
+  }
+  .footer-admin:hover{color:var(--muted);opacity:1;text-decoration:underline;}
+
+  @media (max-width:760px){
+    .footer-grid{grid-template-columns:1fr;gap:36px;}
+    .footer-bottom{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#" class="logo" data-nav="home">Crex<span>up</span></a>
+    <div class="navlinks">
+      <a href="#" class="navlink" data-nav="home">Home</a>
+      <a href="#" class="navlink" data-nav="creator">I'm a Creator</a>
+      <a href="#" class="navlink" data-nav="brand">I'm a Brand</a>
+      <a href="#" class="navlink" id="whyUsLink">Why Us</a>
+      <a href="#" class="navlink" id="contactUsLink">Contact Us</a>
+    </div>
+  </nav>
+  <div class="ticker-band">
+    <div class="ticker-track">
+      <span>VERIFIED PROFILES ONLY</span><span>END-TO-END CAMPAIGN MANAGEMENT</span><span>REACH · TRUST · ROI</span><span>1K → 10K NANO CREATORS</span><span>10K → 100K MICRO CREATORS</span>
+      <span>VERIFIED PROFILES ONLY</span><span>END-TO-END CAMPAIGN MANAGEMENT</span><span>REACH · TRUST · ROI</span><span>1K → 10K NANO CREATORS</span><span>10K → 100K MICRO CREATORS</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ PAGE: HOME ============ -->
+<div class="page active" id="page-home">
+  <section class="home-hero">
+    <div class="wrap">
+      <h1>Where brands meet <span style="color:var(--yellow);">real</span> influence.</h1>
+      <p class="lede" style="margin-left:auto;margin-right:auto;">Crexup is a managed creator marketing platform connecting India's nano &amp; micro creators with brands — end-to-end, no chasing, no negotiating.</p>
+      <div class="choice-grid">
+        <div class="choice-card" data-nav="creator">
+          <h3>I'm a Creator</h3>
+          <p>Get matched with brands, create approved content, get paid.</p>
+          <div class="go">Continue as a creator →</div>
+        </div>
+        <div class="choice-card" data-nav="brand">
+          <h3>I'm a Brand</h3>
+          <p>Get a fully managed creator campaign, built around your goal.</p>
+          <div class="go">Continue as a brand →</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why-us">
+    <div class="wrap">
+      <div class="label">Why Us</div>
+      <h2 style="font-size:28px;max-width:640px;margin-bottom:12px;">Why brands and creators choose Crexup.</h2>
+      <p class="lede">Everything we do is built around one goal — real results, delivered without the usual chaos of influencer marketing.</p>
+    </div>
+    <div class="whyus-scroll-outer">
+      <div class="whyus-scroll-track">
+        <div class="whyus-card"><h3>24×7 Campaign Management</h3><p>Your campaign is never left unattended — our team manages sourcing, briefing, approvals, and coordination around the clock.</p></div>
+        <div class="whyus-card"><h3>10x Average ROI Growth</h3><p>Brands running managed nano &amp; micro creator campaigns with us see up to 10x better returns than traditional celebrity endorsements.</p></div>
+        <div class="whyus-card"><h3>Verified Creators Only</h3><p>Every creator on Crexup is manually vetted — no fake followers, no bot engagement, no surprises.</p></div>
+        <div class="whyus-card"><h3>Performance-Driven</h3><p>Every campaign is built around measurable outcomes, not vanity metrics.</p></div>
+        <div class="whyus-card"><h3>Fully Managed, End-to-End</h3><p>From creator discovery to final reporting, we handle it all so your team doesn't have to.</p></div>
+        <div class="whyus-card"><h3>Nano &amp; Micro Focus</h3><p>Authentic voices with real engagement — often outperforming reach-only celebrity deals.</p></div>
+        <!-- duplicated for a seamless infinite scroll loop -->
+        <div class="whyus-card" aria-hidden="true"><h3>24×7 Campaign Management</h3><p>Your campaign is never left unattended — our team manages sourcing, briefing, approvals, and coordination around the clock.</p></div>
+        <div class="whyus-card" aria-hidden="true"><h3>10x Average ROI Growth</h3><p>Brands running managed nano &amp; micro creator campaigns with us see up to 10x better returns than traditional celebrity endorsements.</p></div>
+        <div class="whyus-card" aria-hidden="true"><h3>Verified Creators Only</h3><p>Every creator on Crexup is manually vetted — no fake followers, no bot engagement, no surprises.</p></div>
+        <div class="whyus-card" aria-hidden="true"><h3>Performance-Driven</h3><p>Every campaign is built around measurable outcomes, not vanity metrics.</p></div>
+        <div class="whyus-card" aria-hidden="true"><h3>Fully Managed, End-to-End</h3><p>From creator discovery to final reporting, we handle it all so your team doesn't have to.</p></div>
+        <div class="whyus-card" aria-hidden="true"><h3>Nano &amp; Micro Focus</h3><p>Authentic voices with real engagement — often outperforming reach-only celebrity deals.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="label">What We Do</div>
+      <h2 style="font-size:28px;max-width:640px;margin-bottom:16px;">Not a marketplace. A managed growth partner.</h2>
+      <p class="lede">Crexup builds and manages end-to-end influencer campaigns for brands — from creator discovery and vetting to content approval and performance reporting. Brands don't chase creators. Creators don't chase brands. We run the entire campaign, so you don't have to.</p>
+    </div>
+  </section>
+
+  <section class="storyblock">
+    <div class="wrap">
+      <div class="label">Where We're Headed</div>
+      <p class="lede" style="font-size:16px;">Managed campaigns today. A full creator economy platform next — UGC content services, creator commerce, analytics, and AI-powered creator tools.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="label">Our Story</div>
+      <p class="lede" style="font-size:16px;margin-bottom:36px;">Most influencer marketing today sits at two extremes — expensive celebrity endorsements, or messy DIY outreach to hundreds of small creators with no structure. Crexup exists to close that gap: a managed platform with the trust of an agency and the scale of a technology platform.</p>
+      <div class="belief"><h3>Authenticity outperforms reach.</h3><p>A creator with 8,000 real followers often drives more trust than one with 800,000.</p></div>
+      <div class="belief"><h3>Managed beats marketplace.</h3><p>Brands don't want another dashboard — they want outcomes.</p></div>
+      <div class="belief"><h3>Creators deserve real opportunities.</h3><p>Fair pay, clear briefs, and timely payments — not DMs that go nowhere.</p></div>
+    </div>
+  </section>
+
+  <section style="background:var(--yellow);color:#151300;text-align:center;border-bottom:none;">
+    <div class="wrap">
+      <h2 style="font-size:clamp(26px,4vw,40px);margin-bottom:26px;">Ready to grow with Crexup?</h2>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="#" class="btn" data-nav="brand" style="background:#151300;color:var(--yellow);">For Brands</a>
+        <a href="#" class="btn" data-nav="creator" style="background:transparent;border:1px solid #151300;color:#151300;">For Creators</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ PAGE: CREATOR ============ -->
+<div class="page" id="page-creator">
+
+  <section>
+    <div class="wrap">
+      <div class="label">For Creators</div>
+      <h1 style="font-size:clamp(32px,5vw,52px);max-width:680px;">Your content deserves real brand deals.</h1>
+      <p class="lede" style="margin-top:18px;">Crexup connects nano &amp; micro creators (1K–100K followers) with brands looking for authentic voices — not just big numbers.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="label">Why join</div>
+      <div class="points">
+        <div class="point"><h3>Get paid fairly</h3><p>Transparent collaboration terms. No lowball DMs.</p></div>
+        <div class="point"><h3>Matched to relevant brands</h3><p>Offers that actually fit your niche and audience.</p></div>
+        <div class="point"><h3>Grow your personal brand</h3><p>Work with recognizable D2C and consumer brands.</p></div>
+        <div class="point"><h3>No negotiation hassle</h3><p>We handle briefs, approvals, and payments. You focus on creating.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="label">Who can join</div>
+      <h2 style="font-size:24px;margin-bottom:18px;">Nano &amp; micro creators, any category.</h2>
+      <div class="tags">
+        <span class="tag">Nano · 1K–10K</span><span class="tag">Micro · 10K–100K</span>
+        <span class="tag">Beauty</span><span class="tag">Fashion</span><span class="tag">Food</span>
+        <span class="tag">Fitness</span><span class="tag">Tech</span><span class="tag">Lifestyle</span>
+        <span class="tag">Travel</span><span class="tag">Comedy</span><span class="tag">Parenting</span>
+        <span class="tag">Finance</span><span class="tag">Gaming</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-bottom:0;">
+    <div class="wrap">
+      <div class="label">How it works</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h3>Register in 2 minutes</h3><p>Fill a simple form with your details and content category.</p></div>
+      <div class="step"><div class="n">02</div><h3>Get matched to brands</h3><p>We connect you with paid collaborations that fit your niche.</p></div>
+      <div class="step"><div class="n">03</div><h3>Create and get paid</h3><p>Post approved content and receive timely payouts.</p></div>
+    </div>
+  </section>
+
+  <section id="creator-form">
+    <div class="wrap">
+      <div class="label">Creator Registration</div>
+      <h2 style="font-size:28px;margin-bottom:8px;">Join the Crexup creator network</h2>
+      <p class="lede" style="margin-bottom:32px;">Takes less than 2 minutes. No fees, ever.</p>
+      <form class="formwrap" id="creatorForm" name="creator-registration" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="creator-registration">
+        <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
+        <div class="field"><label>Full Name <span class="req">*</span></label><input type="text" name="Full Name" required></div>
+        <div class="field-row">
+          <div class="field"><label>Instagram Username <span class="req">*</span></label><input type="text" name="Instagram Username" placeholder="@yourhandle" required></div>
+          <div class="field"><label>Mobile Number <span class="req">*</span></label><input type="tel" name="Mobile Number" required></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>WhatsApp Number <span class="req">*</span></label><input type="tel" name="WhatsApp Number" placeholder="Same as mobile? Enter again" required></div>
+          <div class="field"><label>Instagram Profile URL</label><input type="url" name="Instagram URL" placeholder="https://instagram.com/yourhandle"></div>
+        </div>
+        <div class="field"><label>Email Address <span class="req">*</span></label><input type="email" name="Email" required></div>
+        <div class="field-row">
+          <div class="field">
+            <label>Gender <span class="req">*</span></label>
+            <select name="Gender" required><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option><option>Prefer not to say</option></select>
+          </div>
+          <div class="field">
+            <label>State <span class="req">*</span></label>
+            <select name="State" required><option value="">Select</option><option>Maharashtra</option><option>Delhi</option><option>Karnataka</option><option>Tamil Nadu</option><option>Uttar Pradesh</option><option>Madhya Pradesh</option><option>Gujarat</option><option>West Bengal</option><option>Telangana</option><option>Other</option></select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>City <span class="req">*</span></label><input type="text" name="City" required></div>
+          <div class="field">
+            <label>Language <span class="req">*</span></label>
+            <select name="Language" required><option value="">Select</option><option>Hindi</option><option>English</option><option>Tamil</option><option>Telugu</option><option>Kannada</option><option>Malayalam</option><option>Marathi</option><option>Bengali</option><option>Gujarati</option><option>Punjabi</option><option>Other</option></select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Content Category <span class="req">*</span> <span class="muted" style="font-weight:400;">— select all that apply</span></label>
+          <div class="chiprow" id="creatorCategoryChips">
+            <div class="chip">Beauty &amp; Skincare</div><div class="chip">Fashion</div><div class="chip">Food &amp; Beverage</div>
+            <div class="chip">Fitness &amp; Health</div><div class="chip">Tech &amp; Gadgets</div><div class="chip">Lifestyle</div>
+            <div class="chip">Travel</div><div class="chip">Comedy</div><div class="chip">Parenting</div>
+            <div class="chip">Finance</div><div class="chip">Gaming</div><div class="chip">Home &amp; Kitchen</div><div class="chip">Couple</div><div class="chip">Other</div>
+          </div>
+          <input type="hidden" name="Content Category" id="creatorCategoryValue">
+        </div>
+        <div class="field">
+          <label>Content Niche <span class="req">*</span></label>
+          <select name="Content Niche" id="creatorNiche" required>
+            <option value="">Select</option>
+            <option>Skincare</option><option>Streetwear</option><option>Home Decor</option><option>Vlogging</option>
+            <option>Parenting</option><option>Sneakers</option><option>Pets</option><option>Music</option>
+            <option>Education</option><option>Couple</option><option>Other</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Follower Count <span class="req">*</span></label><input type="number" name="Follower Count" id="creatorFollowers" min="0" placeholder="e.g. 8000" required></div>
+          <div class="field"><label>Average Engagement Rate (%) <span class="req">*</span></label><input type="number" name="Engagement Rate" id="creatorEngagement" min="0" max="100" step="0.1" placeholder="e.g. 4.2" required></div>
+        </div>
+        <button type="submit" class="btn btn-solid" style="width:100%;justify-content:center;margin-top:6px;">Join Crexup as a Creator</button>
+        <div class="successbox" id="creatorSuccess">You're in! Our team will review your profile and reach out when a matching brand opportunity is live.</div>
+      </form>
+    </div>
+  </section>
+
+  <section class="storyblock">
+    <div class="wrap">
+      <div class="label">Crexup</div>
+      <div class="points">
+        <div class="point"><h3>Our story</h3><p>Most influencer marketing sits at two extremes — expensive celebrity endorsements, or messy DIY outreach with no structure. Crexup closes that gap with a managed platform built on real vetting and real accountability.</p></div>
+        <div class="point"><h3>Where we're headed</h3><p>Managed campaigns today. UGC content, creator commerce, analytics, and AI-powered creator tools next.</p></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ PAGE: BRAND ============ -->
+<div class="page" id="page-brand">
+
+  <section>
+    <div class="wrap">
+      <div class="label">For Brands</div>
+      <h1 style="font-size:clamp(32px,5vw,52px);max-width:720px;">Influencer marketing, fully managed.</h1>
+      <p class="lede" style="margin-top:18px;">Crexup runs high-volume nano &amp; micro creator campaigns end-to-end — so your team doesn't have to chase creators, negotiate, or track content manually.</p>
+    </div>
+  </section>
+
+  <section style="padding-bottom:0;">
+    <div class="wrap">
+      <div class="label">How it works</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h3>Tell us your goal</h3><p>Share your product, budget, and campaign objective.</p></div>
+      <div class="step"><div class="n">02</div><h3>We build your campaign</h3><p>Verified nano &amp; micro creators, matched to your brand and audience.</p></div>
+      <div class="step"><div class="n">03</div><h3>You get results</h3><p>Content, reach, and performance reports — no back-and-forth needed.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="label">Why Crexup</div>
+      <div class="points">
+        <div class="point"><h3>Verified network</h3><p>Every creator is manually vetted. No fake followers, no bot engagement.</p></div>
+        <div class="point"><h3>Fully managed</h3><p>We handle briefing, coordination, approvals, and reporting — start to finish.</p></div>
+        <div class="point"><h3>Nano &amp; micro focus</h3><p>Higher engagement and better ROI than celebrity endorsements.</p></div>
+        <div class="point"><h3>Performance-driven</h3><p>Every campaign built around measurable outcomes.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="label">The problem</div>
+      <h2 style="font-size:24px;max-width:640px;">Influencer marketing shouldn't feel like a second job.</h2>
+      <p class="lede" style="margin-top:14px;">Manually finding creators, negotiating rates, chasing content, and tracking performance drains time your team doesn't have. Crexup removes all of it — you get outcomes, not overhead.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="label">What we manage for you</div>
+      <div class="points">
+        <div class="point"><h3>Sourcing &amp; vetting</h3><p>Verified nano &amp; micro creators matched to your brand.</p></div>
+        <div class="point"><h3>Strategy &amp; briefing</h3><p>Clear content briefs aligned to your campaign goals.</p></div>
+        <div class="point"><h3>Approval &amp; coordination</h3><p>We manage revisions with creators directly.</p></div>
+        <div class="point"><h3>Reporting &amp; payments</h3><p>Reach, engagement, ROI reporting, and one invoice.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="label">Industries we serve</div>
+      <div class="tags">
+        <span class="tag">D2C Brands</span><span class="tag">Beauty &amp; Skincare</span><span class="tag">Fashion</span>
+        <span class="tag">Food &amp; Beverage</span><span class="tag">Consumer Electronics</span><span class="tag">Fitness &amp; Nutrition</span>
+        <span class="tag">Home &amp; Kitchen</span><span class="tag">Amazon Sellers</span><span class="tag">Flipkart Sellers</span>
+        <span class="tag">Startups &amp; New Launches</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="brand-form">
+    <div class="wrap">
+      <div class="label">Brand Inquiry</div>
+      <h2 style="font-size:28px;margin-bottom:8px;">Let's build your next campaign</h2>
+      <p class="lede" style="margin-bottom:32px;">Tell us about your brand — our team will get back within 24 hours.</p>
+      <form class="formwrap" id="brandForm" name="brand-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="brand-inquiry">
+        <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
+        <div class="field-row">
+          <div class="field"><label>Brand Name <span class="req">*</span></label><input type="text" name="Brand Name" required></div>
+          <div class="field"><label>Contact Person Name <span class="req">*</span></label><input type="text" name="Contact Person" required></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Business Email <span class="req">*</span></label><input type="email" name="Email" required></div>
+          <div class="field"><label>Phone Number <span class="req">*</span></label><input type="tel" name="Phone" required></div>
+        </div>
+        <div class="field">
+          <label>Industry / Category <span class="req">*</span></label>
+          <select name="Industry" required>
+            <option value="">Select</option><option>D2C</option><option>Beauty & Skincare</option><option>Fashion</option>
+            <option>Food & Beverage</option><option>Consumer Electronics</option><option>Fitness & Nutrition</option>
+            <option>Home & Kitchen</option><option>Amazon Seller</option><option>Flipkart Seller</option>
+            <option>Startup / New Product Launch</option><option>Other</option>
+          </select>
+        </div>
+        <div class="field"><label>Website / Instagram Handle</label><input type="text" name="Website" placeholder="Optional"></div>
+        <div class="field-row">
+          <div class="field">
+            <label>Monthly Marketing Budget <span class="req">*</span></label>
+            <select name="Budget" required><option value="">Select</option><option>Under ₹50K</option><option>₹50K–2L</option><option>₹2L–5L</option><option>₹5L–10L</option><option>₹10L+</option></select>
+          </div>
+          <div class="field">
+            <label>Campaign Goal <span class="req">*</span></label>
+            <select name="Campaign Goal" required><option value="">Select</option><option>Brand Awareness & Reach</option><option>Sales & Conversions</option><option>UGC Content Creation</option><option>Product Launch</option><option>Building Trust & Reviews</option></select>
+          </div>
+        </div>
+        <div class="field"><label>Additional Requirements</label><textarea rows="4" name="Requirements" placeholder="Optional"></textarea></div>
+        <button type="submit" class="btn btn-solid" style="width:100%;justify-content:center;margin-top:6px;">Request a Campaign Quote</button>
+        <div class="successbox" id="brandSuccess">Thanks! Our team will reach out within 24 hours with a campaign plan tailored to your brand.</div>
+      </form>
+    </div>
+  </section>
+
+  <section class="storyblock">
+    <div class="wrap">
+      <div class="label">Crexup</div>
+      <div class="points">
+        <div class="point"><h3>Our story</h3><p>Most influencer marketing sits at two extremes — expensive celebrity endorsements, or messy DIY outreach with no structure. Crexup closes that gap with a managed platform built on real vetting and real accountability.</p></div>
+        <div class="point"><h3>Where we're headed</h3><p>Managed campaigns today. UGC content, creator commerce, analytics, and AI-powered creator tools next.</p></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+
+<footer class="site-footer" id="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+
+      <!-- Column 1 — Brand -->
+      <div class="footer-col footer-brand">
+        <a href="#" class="logo" data-nav="home">Crex<span style="color:var(--yellow)">up</span></a>
+        <p class="footer-tagline">Managed nano &amp; micro creator marketing, built for India.</p>
+        <div class="footer-social">
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.97.24 2.43.4a4.9 4.9 0 0 1 1.77 1.15 4.9 4.9 0 0 1 1.15 1.77c.16.46.35 1.26.4 2.43.06 1.25.07 1.65.07 4.85s-.01 3.6-.07 4.85c-.05 1.17-.24 1.97-.4 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.46.16-1.26.35-2.43.4-1.25.06-1.65.07-4.85.07s-3.6-.01-4.85-.07c-1.17-.05-1.97-.24-2.43-.4a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.16-.46-.35-1.26-.4-2.43C2.21 15.6 2.2 15.2 2.2 12s.01-3.6.07-4.85c.05-1.17.24-1.97.4-2.43a4.9 4.9 0 0 1 1.15-1.77A4.9 4.9 0 0 1 5.59 1.8c.46-.16 1.26-.35 2.43-.4C9.27 2.34 9.67 2.2 12 2.2Zm0 3.05a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5Zm0 11.13a4.38 4.38 0 1 1 0-8.76 4.38 4.38 0 0 1 0 8.76Zm7.02-11.4a1.58 1.58 0 1 1-3.15 0 1.58 1.58 0 0 1 3.15 0Z"/></svg>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.83v1.64h.05c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.14V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96V21h-4V9Z"/></svg>
+          </a>
+          <a href="https://x.com" target="_blank" rel="noopener" aria-label="Twitter / X">
+            <svg viewBox="0 0 24 24"><path d="M18.9 2H22l-7.5 8.57L23.3 22h-6.86l-5.37-6.9L4.9 22H1.8l8.02-9.17L1 2h7.03l4.86 6.3L18.9 2Zm-1.2 18h1.7L7.4 3.9H5.6L17.7 20Z"/></svg>
+          </a>
+          <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M13.5 21v-7.7h2.6l.4-3h-3v-1.9c0-.87.24-1.46 1.5-1.46h1.6V4.28c-.28-.04-1.23-.12-2.35-.12-2.32 0-3.9 1.42-3.9 4.02v2.12H7.7v3h2.65V21h3.15Z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 2 — Quick Links -->
+      <div class="footer-col">
+        <div class="label">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="#" data-nav="home">Home</a></li>
+          <li><a href="#" data-nav="creator">I'm a Creator</a></li>
+          <li><a href="#" data-nav="brand">I'm a Brand</a></li>
+          <li><a href="#" id="whyUsLinkFooter">Why Us</a></li>
+          <li><a href="#" id="contactUsLinkFooter">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3 — Services -->
+      <div class="footer-col">
+        <div class="label">Services</div>
+        <ul class="footer-links">
+          <li>Creator Discovery &amp; Vetting</li>
+          <li>Campaign Management</li>
+          <li>Content Approval</li>
+          <li>Performance Reporting</li>
+          <li>UGC Content</li>
+        </ul>
+      </div>
+
+      <!-- Column 4 — Get In Touch -->
+      <div class="footer-col">
+        <div class="label">Get In Touch</div>
+        <ul class="footer-contact">
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" stroke-linejoin="round"/><path d="m3.5 6 8.5 6.5L20.5 6" stroke-linejoin="round"/></svg>
+            <a href="mailto:hello@crexup.com">hello@crexup.com</a>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z" stroke-linejoin="round"/></svg>
+            <a href="tel:+918319908103">+91 83199 08103</a>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+            <span>Bhopal, Madhya Pradesh, India</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div class="copyright">© <span id="year"></span> Crexup. All rights reserved.</div>
+      <div class="footer-bottom-links">
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+        <a href="#cookies">Cookie Policy</a>
+        <a href="/login" class="footer-admin">Admin Login</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  function goTo(pageName){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById('page-'+pageName).classList.add('active');
+    document.querySelectorAll('.navlink').forEach(l=>l.classList.toggle('active', l.dataset.nav===pageName));
+    window.scrollTo({top:0,behavior:'instant'});
+    history.replaceState(null,'','#'+pageName);
+  }
+
+  document.querySelectorAll('[data-nav]').forEach(el=>{
+    el.addEventListener('click', e=>{
+      e.preventDefault();
+      goTo(el.dataset.nav);
+    });
+  });
+
+  // load correct page on hash
+  const initial = (location.hash || '#home').replace('#','');
+  goTo(['home','creator','brand'].includes(initial) ? initial : 'home');
+
+  // "Contact Us" — always scrolls to the footer, from any page, without
+  // changing which page tab is active.
+  function scrollToFooter(e){
+    e.preventDefault();
+    document.getElementById('site-footer').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  const contactUsTop = document.getElementById('contactUsLink');
+  const contactUsFooter = document.getElementById('contactUsLinkFooter');
+  if (contactUsTop) contactUsTop.addEventListener('click', scrollToFooter);
+  if (contactUsFooter) contactUsFooter.addEventListener('click', scrollToFooter);
+
+  // "Why Us" — lives on the Home page now. Clicking it from any page
+  // switches to Home first, then smooth-scrolls down to the section.
+  function scrollToWhyUs(e){
+    e.preventDefault();
+    const isHomeActive = document.getElementById('page-home').classList.contains('active');
+    if(!isHomeActive){
+      goTo('home');
+      // wait a tick for the page switch/layout to settle before scrolling
+      setTimeout(()=>{
+        document.getElementById('why-us').scrollIntoView({behavior:'smooth', block:'start'});
+      }, 50);
+    } else {
+      document.getElementById('why-us').scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+  const whyUsTop = document.getElementById('whyUsLink');
+  const whyUsFooter = document.getElementById('whyUsLinkFooter');
+  if (whyUsTop) whyUsTop.addEventListener('click', scrollToWhyUs);
+  if (whyUsFooter) whyUsFooter.addEventListener('click', scrollToWhyUs);
+
+  // chip multi-select
+  document.querySelectorAll('.chip').forEach(chip=>{
+    chip.addEventListener('click',()=>chip.classList.toggle('picked'));
+  });
+
+  function encodeForm(form){
+    const data = new FormData(form);
+    return new URLSearchParams(data).toString();
+  }
+
+  // Crexup admin backend — set this to your deployed API before going live,
+  // e.g. window.CREXUP_API_BASE = 'https://crexup-api.up.railway.app';
+  const CREXUP_API_BASE = window.CREXUP_API_BASE || 'https://crexup-backened.onrender.com';
+
+  const GENDER_MAP = { 'Male':'MALE', 'Female':'FEMALE', 'Other':'OTHER', 'Prefer not to say':'PREFER_NOT_TO_SAY' };
+
+  // Sends the creator form to the real admin backend so submissions (and the
+  // Instagram URL) actually show up in the admin dashboard. Returns the
+  // parsed response so the caller can show a real error (e.g. duplicate
+  // Instagram username) instead of always showing the generic success box.
+  async function submitCreatorToApi(form){
+    const picked = Array.from(document.querySelectorAll('#creatorCategoryChips .chip.picked')).map(c=>c.textContent.trim());
+    const genderRaw = form.querySelector('[name="Gender"]').value;
+    const payload = {
+      fullName: form.querySelector('[name="Full Name"]').value.trim(),
+      instagramUsername: form.querySelector('[name="Instagram Username"]').value.trim(),
+      instagramUrl: form.querySelector('[name="Instagram URL"]').value.trim() || undefined,
+      mobileNumber: form.querySelector('[name="Mobile Number"]').value.trim(),
+      whatsappNumber: form.querySelector('[name="WhatsApp Number"]').value.trim(),
+      email: form.querySelector('[name="Email"]').value.trim(),
+      gender: GENDER_MAP[genderRaw] || undefined,
+      state: form.querySelector('[name="State"]').value,
+      city: form.querySelector('[name="City"]').value.trim(),
+      language: form.querySelector('[name="Language"]').value,
+      contentCategory: picked.join(', ') || 'Other',
+      contentNiche: document.getElementById('creatorNiche').value,
+    };
+    try {
+      const resp = await fetch(`${CREXUP_API_BASE}/api/public/creators/register`, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      });
+      const data = await resp.json().catch(()=>({}));
+      return { ok: resp.ok, data };
+    } catch (err) {
+      return { ok: false, data: { error: 'Could not reach the server. Please try again.' } };
+    }
+  }
+
+  // forms — submit to Netlify Forms via fetch (works once deployed on Netlify)
+  function wireForm(formId, successId){
+    const form = document.getElementById(formId);
+    const success = document.getElementById(successId);
+    form.addEventListener('submit', async e=>{
+      e.preventDefault();
+      if(!form.checkValidity()){ form.reportValidity(); return; }
+
+      // if this is the creator form, sync picked chips into the hidden field
+      // and register with the real backend first — if it fails (e.g. this
+      // Instagram username is already registered), show that error instead
+      // of a false "success" message.
+      if(formId === 'creatorForm'){
+        const picked = Array.from(document.querySelectorAll('#creatorCategoryChips .chip.picked')).map(c=>c.textContent.trim());
+        document.getElementById('creatorCategoryValue').value = picked.join(', ');
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        const result = await submitCreatorToApi(form);
+        submitBtn.disabled = false;
+
+        if(!result.ok){
+          success.textContent = result.data.error || 'Something went wrong. Please check your details and try again.';
+          success.style.borderColor = '#7a2e2e';
+          success.style.color = '#ff9b9b';
+          success.classList.add('show');
+          success.scrollIntoView({behavior:'smooth', block:'nearest'});
+          return;
+        }
+      }
+
+      fetch('/', {
+        method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        body: encodeForm(form)
+      })
+      .then(()=>{
+        success.style.borderColor = '';
+        success.style.color = '';
+        success.classList.add('show');
+        form.querySelectorAll('input,select,textarea').forEach(el=>{ if(el.type!=='hidden') el.value=''; });
+        document.querySelectorAll('.chip.picked').forEach(c=>c.classList.remove('picked'));
+        success.scrollIntoView({behavior:'smooth', block:'nearest'});
+      })
+      .catch(()=>{
+        // Fallback: this fetch only succeeds once the site is actually deployed on Netlify.
+        // For the creator form, registration above already succeeded either way.
+        success.textContent = formId === 'creatorForm'
+          ? "You're in! Our team will review your profile and reach out when a matching brand opportunity is live."
+          : "Thanks! (Note: this form will start saving submissions once the site is live on Netlify.)";
+        success.style.borderColor = '';
+        success.style.color = '';
+        success.classList.add('show');
+      });
+    });
+  }
+  wireForm('creatorForm','creatorSuccess');
+  wireForm('brandForm','brandSuccess');
+</script>
+
+</body>
+</html>
