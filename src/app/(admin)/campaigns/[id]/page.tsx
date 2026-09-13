@@ -65,7 +65,7 @@ export default function CampaignDetailPage() {
                 <div className="flex flex-col items-center gap-1">
                   <div
                     className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-medium ${
-                      i <= currentStageIndex ? "bg-coral text-white" : "bg-black/5 text-muted"
+                      i <= currentStageIndex ? "bg-coral text-white" : "bg-white/5 text-muted"
                     }`}
                   >
                     {i + 1}
