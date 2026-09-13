@@ -436,7 +436,7 @@ export default function CreatorProfilePage() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="flex items-center justify-between rounded-bg-black/5 to bg-white/5">
+            <div className="flex items-center justify-between rounded-bg-white/5">
               <span className="text-sm font-medium">Overall Score</span>
               <span className="font-data text-lg font-semibold">{previewOverallScore}/10</span>
             </div>
