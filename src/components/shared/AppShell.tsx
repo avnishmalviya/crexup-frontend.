@@ -39,12 +39,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-screen bg-paper">
-      <aside className="flex w-60 shrink-0 flex-col bg-ink text-white">
+      <aside className="flex w-60 shrink-0 flex-col bg-black text-white">
         <div className="flex items-center gap-2 px-5 py-6">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-coral font-display font-bold">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-coral font-display font-bold text-black">
             C
           </div>
-          <span className="font-display text-lg font-semibold">Crexup</span>
+          <span className="font-display text-lg font-semibold">
+            Crex<span className="text-coral">up</span>
+          </span>
         </div>
 
         <nav className="flex-1 space-y-1 px-3">

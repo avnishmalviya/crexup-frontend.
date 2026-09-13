@@ -14,23 +14,23 @@
   indigo     links, selected states, informational
 */
 :root {
-  --ink: #15161f;
-  --ink-soft: #2a2c3a;
-  --paper: #f3f4f7;
-  --surface: #ffffff;
-  --line: #e3e5ea;
-  --muted: #6b6f80;
+  --ink: #f3f4f7;
+  --ink-soft: #d8dae2;
+  --paper: #0b0b0d;
+  --surface: #16161a;
+  --line: #2a2a2f;
+  --muted: #9c9893;
 
-  --coral: #ff5a3c;
-  --coral-soft: #ffe6df;
-  --teal: #17a673;
-  --teal-soft: #dcf5ec;
-  --amber: #f2a93b;
-  --amber-soft: #fdf1dd;
-  --red: #e14b4b;
-  --red-soft: #fbe4e4;
-  --indigo: #5b6ef5;
-  --indigo-soft: #e8eafd;
+  --coral: #f4b400;
+  --coral-soft: #3a2f0a;
+  --teal: #2ecfa0;
+  --teal-soft: #0f2e26;
+  --amber: #ffce3a;
+  --amber-soft: #332a0c;
+  --red: #ff6b6b;
+  --red-soft: #3a1414;
+  --indigo: #7c8cff;
+  --indigo-soft: #1c2040;
 
   --font-display: var(--font-space-grotesk);
   --font-body: var(--font-inter);
