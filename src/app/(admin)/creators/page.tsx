@@ -27,8 +27,10 @@ function CreatorsPageInner() {
 
   const [q, setQ] = useState(searchParams.get("q") || "");
   const [state, setState] = useState("");
+  const [city, setCity] = useState("");
   const [category, setCategory] = useState("");
   const [minFollowers, setMinFollowers] = useState("");
+  const [maxFollowers, setMaxFollowers] = useState("");
   const [minEngagement, setMinEngagement] = useState("");
   const [verificationStatus, setVerificationStatus] = useState("");
   const [selected, setSelected] = useState<Set<string>>(new Set());
@@ -36,8 +38,10 @@ function CreatorsPageInner() {
   const params = new URLSearchParams();
   if (q) params.set("q", q);
   if (state) params.set("state", state);
+  if (city) params.set("city", city);
   if (category) params.set("category", category);
   if (minFollowers) params.set("minFollowers", minFollowers);
+  if (maxFollowers) params.set("maxFollowers", maxFollowers);
   if (minEngagement) params.set("minEngagement", minEngagement);
   if (verificationStatus) params.set("verificationStatus", verificationStatus);
   params.set("pageSize", "20");
@@ -79,15 +83,22 @@ function CreatorsPageInner() {
       </div>
 
       <Card>
-        <CardBody className="grid grid-cols-2 gap-3 md:grid-cols-6">
+        <CardBody className="grid grid-cols-2 gap-3 md:grid-cols-4 xl:grid-cols-8">
           <Input placeholder="Name, Instagram, mobile" value={q} onChange={(e) => setQ(e.target.value)} />
           <Input placeholder="State" value={state} onChange={(e) => setState(e.target.value)} />
+          <Input placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} />
           <Input placeholder="Category" value={category} onChange={(e) => setCategory(e.target.value)} />
           <Input
             placeholder="Min. followers"
             type="number"
             value={minFollowers}
             onChange={(e) => setMinFollowers(e.target.value)}
+          />
+          <Input
+            placeholder="Max. followers"
+            type="number"
+            value={maxFollowers}
+            onChange={(e) => setMaxFollowers(e.target.value)}
           />
           <Input
             placeholder="Min. engagement %"
